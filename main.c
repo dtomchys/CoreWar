@@ -12,12 +12,21 @@
 
 #include "asm.h"
 
-int				ft_check_args(int argc)
+int				ft_check_args(int argc, char **argv)
 {
+	int i;
+
+	i = ft_strlen(argv[argc - 1]);
 	if (argc == 1)
 	{
 		write(1, "Usage: ./asm <sourcefile.s>\n", 28);
 		return (-1);
+	}
+	else
+	{
+		if (i < 2 || (argv[argc - 1][i - 2] != '.' &&\
+		 argv[argc - 1][i - 1] != 's'))
+			return (ft_error(0));
 	}
 	return (0);
 }
@@ -45,10 +54,10 @@ int				ft_create_cor(char *path, t_map *map)
 
 static int		ft_open_file(char *name)
 {
-	if ((g_fd = open(name, O_RDONLY)) == -1)//ERROR CAN'T OPEN
-		return (-1);
+	if ((g_fd = open(name, O_RDWR)) == -1)//ERROR CAN'T OPEN
+		return (ft_error(1));
 	else if (!g_fd)//ERROR EMPTY FILE
-		return (-1);
+		return (ft_error(2));
 	return (0);
 }
 
@@ -61,7 +70,7 @@ int				main(int argc, char **argv)
 	g_last_line = 0;
 	g_row = 0;
 	g_file = 0;
-	if (ft_check_args(argc)) 
+	if (ft_check_args(argc, argv)) 
 		return (1);
 	if (ft_open_file(argv[argc - 1]))
 		return (1);

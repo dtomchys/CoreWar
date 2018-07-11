@@ -20,7 +20,7 @@ SRC = main.c ft_get_info.c ./tools/ft_tools.c ./parser/parse_name_comment.c\
 ./tools/validate_param.c ./calculation/count_codage.c\
 ./calculation/count_param_size.c ./calculation/count_labels.c ./tools/map_maker.c\
 ./translation/translate_name_comment.c ./translation/translate_exe.c\
-./translation/translate_len.c ./translation/translation_tool.c
+./translation/translate_len.c ./translation/translation_tool.c ft_error.c
 
 OBJ = $(SRC:.c=.o)
 

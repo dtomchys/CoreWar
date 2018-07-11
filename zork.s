@@ -1,7 +1,6 @@
 #skal;kd
 .name "㹴zork" #asdjaskj
-
-.comment "just a basic living prog"
+.!comment "just a basic living prog"
 #iasljkd	
 
 l2: sti	r1, 3, %3#askdl

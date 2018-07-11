@@ -152,4 +152,6 @@ void					ft_translation(t_map *map, t_parser *par);
 void					ft_set_symbol(t_part *tok, char i, int shift);
 int						ft_len_exec(t_parser *par);
 
+int						ft_error(int i);
+
 #endif

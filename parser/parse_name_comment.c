@@ -59,13 +59,17 @@ static char	*ft_get_part(char *op, char *s)
 		if (s[i] == '"')
 			fl[fl[0] ? 1 : 0] = i;
 		if (s[i] == op[j])
+		{
+			printf("%c %c\n",s[i], op[j] );
 			j++;
+		}
 		else if ((s[i] != ' ' && s[i] != '\t') && !fl[0])//ERROR ODD CHAR BEFORE "
 			return(NULL);
 	}
+	printf("%d %zu\n", j, ft_strlen(op));
 	if (fl[1] && !ft_find_end(fl[1] + 1, s)) //ERROR comment without # or ;
 		return(NULL);
-	else if ((size_t)j != ft_strlen(op))//ERROR  .<>name/comment
+	else if ((size_t)j != ft_strlen(op) && ft_error(7))//ERROR  .<>name/comment
 		return (NULL);
 	else if (!fl[1]--) 
 		return (ft_get_last_piece(ft_strncpy(ft_strnew(i - fl[0]), s + fl[0] + 1, i - fl[0])));
@@ -82,21 +86,21 @@ int	ft_get_name_com(char *line, t_parser *par, int *i)
 	{
 		g_file++;
 		par->type = COMMENT;
-		if ((fl[0] > 1 || fl[1] > 1) ||\
-		(par->line = ft_get_part(".comment" , line)) == NULL\
-		|| ft_strlen(par->line) > COMMENT_LENGTH)//ERROR 2 comment || ERROR TOO LONG COMMENT
+		if (((fl[0] > 1 || fl[1] > 1) && ft_error(5))||\
+		(par->line = ft_get_part(".comment" , line)) == NULL ||\
+		((ft_strlen(par->line) > COMMENT_LENGTH) && ft_error(4)))//ERROR 2 comment || ERROR TOO LONG COMMENT
 			return (-1); //
 	}
 	else if (ft_strstr(line, "name") && ++fl[1] && ++*i)
 	{
 		g_file++;
 		par->type = NAME;
-		if ((fl[0] > 1 || fl[1] > 1) ||\
+		if (((fl[0] > 1 || fl[1] > 1) && ft_error(5))||\
 		(par->line = ft_get_part(".name" , line)) == NULL\
-		|| ft_strlen(par->line) > PROG_NAME_LENGTH)//ERROR 2 comment || ERROR TOO LONG NAME
+		|| ((ft_strlen(par->line) > PROG_NAME_LENGTH) && ft_error(3)))//ERROR 2 comment || ERROR TOO LONG NAME
 			return (-1);
 	}
 	else if (!fl[0] || !fl[1])
-		return (-1);
+		return (ft_error(6));
 	return(0);
 }
