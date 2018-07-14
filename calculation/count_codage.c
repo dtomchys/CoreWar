@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   count_codage.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dtomchys <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/07/14 10:43:52 by dtomchys          #+#    #+#             */
+/*   Updated: 2018/07/14 10:43:53 by dtomchys         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../asm.h"
 
 static int		ft_transform_codage(int cod, int type)
@@ -12,7 +24,7 @@ static int		ft_transform_codage(int cod, int type)
 
 void			ft_count_codage(t_parser *par)
 {
-	t_args 	*tmp;
+	t_args	*tmp;
 	int		i;
 
 	while (par)
@@ -32,6 +44,6 @@ void			ft_count_codage(t_parser *par)
 			while (i--)
 				par->codage = par->codage >> 2;
 		}
-		par = par->next;	
+		par = par->next;
 	}
 }

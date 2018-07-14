@@ -1,30 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   count_param_size.c                                 :+:      :+:    :+:   */
+/*   ft_free_split.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dtomchys <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/14 10:45:46 by dtomchys          #+#    #+#             */
-/*   Updated: 2018/07/14 10:45:47 by dtomchys         ###   ########.fr       */
+/*   Created: 2018/07/14 12:13:40 by dtomchys          #+#    #+#             */
+/*   Updated: 2018/07/14 12:13:44 by dtomchys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../asm.h"
+#include "libft.h"
 
-static int		ft_get_total(t_args *tmp, int res)
+void	ft_free_split(char **split)
 {
-	if (!tmp)
-		return (res);
-	return (ft_get_total(tmp->next, res + tmp->arg_size));
-}
+	int i;
 
-void			ft_get_param_size(t_parser *par)
-{
-	while (par)
+	i = -1;
+	while (split[++i])
 	{
-		if (par->type == COMMAND)
-			par->size = ft_get_total(par->args, 1 + (par->codage ? 1 : 0));
-		par = par->next;
+		free(split[i]);
+		split[i] = NULL;
 	}
+	free(split);
+	split = NULL;
 }

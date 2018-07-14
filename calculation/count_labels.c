@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   count_labels.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dtomchys <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/07/14 10:44:34 by dtomchys          #+#    #+#             */
+/*   Updated: 2018/07/14 10:44:35 by dtomchys         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../asm.h"
 
 static int			ft_get_path_after(const char *s, t_parser *par)
 {
-	int 	res;
-	t_label *tmp;
+	int		res;
+	t_label	*tmp;
 
 	res = 0;
 	while (par)
@@ -23,10 +35,10 @@ static int			ft_get_path_after(const char *s, t_parser *par)
 
 static int			ft_get_path(const char *s, int pos, t_parser *par)
 {
-	t_label *tmp;
-	int i;
-	int	fl;
-	int res;
+	t_label	*tmp;
+	int		i;
+	int		fl;
+	int		res;
 
 	i = -1;
 	fl = 0;
@@ -36,7 +48,8 @@ static int			ft_get_path(const char *s, int pos, t_parser *par)
 		tmp = par->label;
 		while (!fl && tmp)
 		{
-			if (!ft_strncmp((char *)s, tmp->name, ft_strlen(tmp->name)))
+			if (!ft_strncmp((char *)s, tmp->name, ft_strcmp(s, tmp->name) < 0 \
+				? ft_strlen(tmp->name) : ft_strlen(s)))
 				fl = 1;
 			tmp = tmp->next;
 		}
@@ -46,14 +59,14 @@ static int			ft_get_path(const char *s, int pos, t_parser *par)
 			break ;
 		par = par->next;
 	}
-	return ( fl ? res * -1 : ft_get_path_after(s, par));
+	return (fl ? res * -1 : ft_get_path_after(s, par));
 }
 
-int			ft_count_labels(t_parser *head)
+int					ft_count_labels(t_parser *head)
 {
-	int    i;
-	t_args *tmp;
-	t_parser *par;
+	int			i;
+	t_args		*tmp;
+	t_parser	*par;
 
 	par = head;
 	i = -1;
@@ -65,8 +78,8 @@ int			ft_count_labels(t_parser *head)
 			{
 				if (tmp->val)
 				{
-					if ((tmp->value = ft_get_path(tmp->val, i, head)) == -1)//ERROR NON LABEL
-						return (-1);
+					if ((tmp->value = ft_get_path(tmp->val, i, head)) == -1)
+						return (ft_error(15));
 					free(tmp->val);
 					tmp->val = NULL;
 				}

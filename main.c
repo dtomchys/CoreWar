@@ -12,9 +12,9 @@
 
 #include "asm.h"
 
-int				ft_check_args(int argc, char **argv)
+static int				ft_check_args(int argc, char **argv)
 {
-	int i;
+	int	i;
 
 	i = ft_strlen(argv[argc - 1]);
 	if (argc == 1)
@@ -25,69 +25,56 @@ int				ft_check_args(int argc, char **argv)
 	else
 	{
 		if (i < 2 || (argv[argc - 1][i - 2] != '.' &&\
-		 argv[argc - 1][i - 1] != 's'))
+			argv[argc - 1][i - 1] != 's'))
 			return (ft_error(0));
 	}
 	return (0);
 }
 
-int				ft_create_cor(char *path, t_map *map)
+static int				ft_create_cor(char *path)
 {
-	int i;
-	char *tmp;
+	char	*tmp;
 
 	tmp = ft_strcpy(ft_strnew(ft_strlen(path) + 2), path);
 	ft_strcpy(ft_strstr(tmp, ".s"), ".cor");
-	if ((g_fd = open(tmp, O_CREAT | O_TRUNC | O_WRONLY, 0666)) < 0)
-		return (-1);
-	ft_printf("Writing output program to %s\n", tmp);	
+	if ((g_fd = open(tmp, O_CREAT | O_TRUNC | O_WRONLY, 0777)) < 0)
+		return (ft_error(1));
+	ft_printf("Writing output program to %s\n", tmp);
 	free(tmp);
 	tmp = NULL;
-	i = -1;
-	while (++i < 7)
-	{
-		ft_putstr_fd(map->map[i]->tok, g_fd);
-	}
-	close(g_fd);
 	return (0);
 }
 
-static int		ft_open_file(char *name)
+static int				ft_open_file(char *name)
 {
-	if ((g_fd = open(name, O_RDWR)) == -1)//ERROR CAN'T OPEN
+	if ((g_fd = open(name, O_RDWR)) == -1)
 		return (ft_error(1));
-	else if (!g_fd)//ERROR EMPTY FILE
+	else if (!g_fd)
 		return (ft_error(2));
 	return (0);
 }
 
-int				main(int argc, char **argv)
+int						main(int argc, char **argv)
 {
-	t_parser *par;
-	t_map	 *map;
-	char 	 *line;
+	t_parser	*par;
+	char		*line;
 
 	g_last_line = 0;
 	g_row = 0;
 	g_file = 0;
-	if (ft_check_args(argc, argv)) 
+	if (ft_check_args(argc, argv))
 		return (1);
 	if (ft_open_file(argv[argc - 1]))
 		return (1);
 	par = ft_new_par();
-	if (ft_get_info(par, &line) || g_file < 3)//ERROR NON ENOUGH TEXT IN FILE
+	if (ft_get_info(par, &line) || (g_file < 3 && ft_error(2)))
 		return (1);
 	ft_count_codage(par);
 	ft_get_param_size(par);
 	if (ft_count_labels(par))
-		return (1);//NO SUCH LABEL
-	map = (t_map*)malloc(sizeof(t_map));
-	ft_bzero(map, sizeof(map));
-	ft_make_map(map, ft_len_exec(par));
-	ft_translation(map, par);
-	if (ft_create_cor(argv[argc - 1], map))
+		return (1);
+	if (ft_create_cor(argv[argc - 1]))
 		return (-1);
+	ft_translation(g_fd, par);
 	return (0);
 }
-
-//DON'T FORGET ABOUT NEW LINE AFTER ZORK.S

@@ -1,26 +1,37 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   translate_name_comment.c                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dtomchys <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/07/14 12:11:33 by dtomchys          #+#    #+#             */
+/*   Updated: 2018/07/14 12:11:34 by dtomchys         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../asm.h"
 
-void	ft_set_name_com(t_part *map, int op, t_parser *par)
+void	ft_set_name_com(int fd, int op, t_parser *par)
 {
 	int i;
-	int j;
-	char *tmp;
+	int z;
+	int zero;
 
-	i = -1;
+	zero = 0;
+	i = op == COMMENT ? 2048 : 128;
+	z = 0;
 	while (par)
 	{
 		if (op == par->type)
 		{
-			while (par->line[++i])
+			while (i--)
 			{
-				tmp = ft_itoa_base(par->line[i], 16);
-				j = ft_strlen(tmp) - 3;			
-				while (tmp[++j])
-					ft_set_symbol(map, ft_tolower(tmp[j]), !j && !tmp[j + 1] ? 1 : 0);
-				free(tmp);
-				tmp = NULL;
+				if (par->line[z])
+					write(fd, &par->line[z++], 1);
+				else
+					write(fd, &zero, 1);
 			}
-			break ;
 		}
 		par = par->next;
 	}

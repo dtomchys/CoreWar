@@ -1,13 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   translate_len.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dtomchys <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/07/14 12:10:55 by dtomchys          #+#    #+#             */
+/*   Updated: 2018/07/14 12:11:00 by dtomchys         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../asm.h"
 
-void	ft_set_len(t_part *tok, int len)
+void	ft_set_len(int fd, unsigned int len)
 {
-	char *tmp;
-	int i;
-
-	tmp = ft_itoa_base(len, 16);
-	i = -1;
-	ft_set_symbol(tok, ft_tolower(tmp[++i]), 8 - ft_strlen(tmp));
-	while (tmp[++i])
-		ft_set_symbol(tok, ft_tolower(tmp[i]), 0);
+	len = reverse_bits(len, 4, 0);
+	write(fd, &len, 4);
 }

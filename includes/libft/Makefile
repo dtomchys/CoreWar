@@ -31,7 +31,7 @@ ft_putchar.c ft_putstr.c ft_putendl.c ft_putnbr.c ft_putchar_fd.c\
 ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c\
 ft_lstnew.c ft_lstdelone.c ft_lstdel.c ft_lstadd.c ft_lstiter.c ft_lstmap.c\
 get_next_line.c ft_dec_wstr.c ft_wchar_len.c ft_wstr_bytelen.c ft_wstrlen.c\
-ft_itoa_base.c\
+ft_itoa_base.c ft_free_split.c\
 ./ft_printf/ft_printf.c ./ft_printf/ft_buf.c ./ft_printf/ft_reset_arg.c\
 ./ft_printf/ft_set_mod.c ./ft_printf/ft_set_pre.c ./ft_printf/ft_set_wid.c\
 ./ft_printf/ft_set_sign.c ./ft_printf/ft_set_sharp.c ./ft_printf/ft_handle_ch.c\

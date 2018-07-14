@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_tools.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dtomchys <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/07/14 11:54:57 by dtomchys          #+#    #+#             */
+/*   Updated: 2018/07/14 11:54:57 by dtomchys         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../asm.h"
 
-t_parser	*ft_new_par()
+t_parser	*ft_new_par(void)
 {
 	t_parser *new;
 
@@ -14,7 +26,7 @@ t_parser	*ft_new_par()
 	return (new);
 }
 
-t_label	*ft_new_label(t_label **head, char *s, int len)
+t_label		*ft_new_label(t_label **head, char *s, int len)
 {
 	t_label *lst;
 
@@ -39,11 +51,21 @@ t_label	*ft_new_label(t_label **head, char *s, int len)
 	}
 }
 
-t_args	*ft_new_arg(t_args **head, char *val, int value, int type)
+static void	ft_set_arg_size(t_args *lst, int type)
+{
+	if (type == 1)
+		lst->arg_size = 1;
+	else if (type == 3 || type == 4)
+		lst->arg_size = 4;
+	else
+		lst->arg_size = 2;
+}
+
+t_args		*ft_new_arg(t_args **head, char *val, int value, int type)
 {
 	t_args *lst;
 
-	lst = *head;	
+	lst = *head;
 	if (lst)
 	{
 		while (lst->next)
@@ -56,18 +78,13 @@ t_args	*ft_new_arg(t_args **head, char *val, int value, int type)
 		lst = (t_args*)malloc(sizeof(t_args));
 		*head = lst;
 	}
-	if (type == 1)
-		lst->arg_size = 1;
-	else if (type == 3 || type == 4)
-		lst->arg_size = 4;
-	else
-		lst->arg_size = 2;
+	ft_set_arg_size(lst, type);
 	lst->type_arg = type > 0 ? type : type * -1;
 	if (val)
 		lst->val = ft_strncpy(ft_strnew(ft_strlen(val)), val, ft_strlen(val));
-	else 
+	else
 		lst->val = NULL;
 	lst->value = value;
 	lst->next = NULL;
-	return (lst);	
+	return (lst);
 }

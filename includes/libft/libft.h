@@ -25,7 +25,7 @@
 
 char	g_buf[4096];
 int		g_i;
-int 	g_row;
+int		g_row;
 int		g_last_line;
 
 typedef enum		e_mod
@@ -139,5 +139,7 @@ int					ft_wchar_len(wchar_t wc);
 int					ft_wstr_bytelen(wchar_t *wstr);
 int					ft_wstrlen(wchar_t *wstr);
 char				*ft_itoa_base(uintmax_t nbr, int base);
+
+void				ft_free_split(char **split);
 
 #endif
