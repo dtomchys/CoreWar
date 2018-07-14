@@ -23,7 +23,8 @@ static int			ft_get_path_after(const char *s, t_parser *par)
 		tmp = par->label;
 		while (tmp)
 		{
-			if (!ft_strncmp((char *)s, tmp->name, ft_strlen(tmp->name)))
+			if (!ft_strncmp((char *)s, tmp->name, ft_strcmp(s, tmp->name)\
+				< 0 ? ft_strlen(tmp->name) : ft_strlen(s)))
 				return (res);
 			tmp = tmp->next;
 		}
@@ -48,8 +49,8 @@ static int			ft_get_path(const char *s, int pos, t_parser *par)
 		tmp = par->label;
 		while (!fl && tmp)
 		{
-			if (!ft_strncmp((char *)s, tmp->name, ft_strcmp(s, tmp->name) < 0 \
-				? ft_strlen(tmp->name) : ft_strlen(s)))
+			if (!ft_strncmp((char *)s, tmp->name, ft_strcmp(s, tmp->name)\
+				< 0 ? ft_strlen(tmp->name) : ft_strlen(s)))
 				fl = 1;
 			tmp = tmp->next;
 		}
