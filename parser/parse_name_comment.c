@@ -100,7 +100,7 @@ int				ft_get_name_com(char *line, t_parser *par, int *i)
 {
 	static int	fl[2];
 
-	if (ft_strnstr(line, "comment", ft_find_ind(line, '"')) && ++fl[0] && ++*i)
+	if (ft_strnstr(line, ".comment", ft_find_ind(line, '"')) && ++fl[0] && ++*i)
 	{
 		g_file++;
 		par->type = COMMENT;
@@ -109,7 +109,7 @@ int				ft_get_name_com(char *line, t_parser *par, int *i)
 		((ft_strlen(par->line) > COMMENT_LENGTH) && ft_error(4)))
 			return (-1);
 	}
-	else if (ft_strnstr(line, "name", ft_find_ind(line, '"'))\
+	else if (ft_strnstr(line, ".name", ft_find_ind(line, '"'))\
 		&& ++fl[1] && ++*i)
 	{
 		g_file++;

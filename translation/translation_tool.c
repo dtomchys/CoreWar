@@ -37,7 +37,7 @@ unsigned int	reverse_bits(int num, int bytes, int sign)
 		if (i < bytes - 1)
 			num = num << 8;
 	}
-	num = sign ? ~num : num;
+	num = sign && num > 0 ? ~num : num;
 	return (num);
 }
 
