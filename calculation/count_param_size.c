@@ -23,7 +23,7 @@ void			ft_get_param_size(t_parser *par)
 {
 	while (par)
 	{
-		if (par->type == COMMAND)
+		if (par->type == COMMAND && par->op)
 			par->size = ft_get_total(par->args, 1 + (par->codage ? 1 : 0));
 		par = par->next;
 	}

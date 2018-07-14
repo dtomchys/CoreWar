@@ -28,7 +28,7 @@ void		ft_set_exec(int fd, t_parser *par)
 {
 	if (!par)
 		return ;
-	if (par->type == COMMAND)
+	if (par->type == COMMAND && par->op)
 	{
 		write(fd, &par->op, 1);
 		if (par->codage)

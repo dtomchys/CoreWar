@@ -14,31 +14,26 @@
 
 unsigned int	reverse_bits(int num, int bytes, int sign)
 {
-	char	tmp[4];
-	int		i;
+	unsigned int rev_num;
+	unsigned char *n1;
+	unsigned char *n2;
 
-	i = -1;
-	while (++i < bytes)
+	sign = 0;
+	n1 = (unsigned char *)&num;
+	n2 = (unsigned char *)&rev_num;
+	if (bytes == 4)
 	{
-		tmp[i] = num;
-		num = num >> 8;
+		n2[0] = n1[3];
+		n2[1] = n1[2];
+		n2[2] = n1[1];
+		n2[3] = n1[0];
 	}
-	i = -1;
-	num = 0;
-	while (++i < bytes)
+	else if (bytes == 2)
 	{
-		if (!sign && tmp[i] < 0)
-		{
-			tmp[i] -= 128;
-			num |= tmp[i] + 128;
-		}
-		else
-			num |= sign ? ~tmp[i] : tmp[i];
-		if (i < bytes - 1)
-			num = num << 8;
+		n2[0] = n1[1];
+		n2[1] = n1[0];
 	}
-	num = sign && num > 0 ? ~num : num;
-	return (num);
+	return ((bytes != 1) ? rev_num : num);
 }
 
 int				ft_len_exec(t_parser *par)
