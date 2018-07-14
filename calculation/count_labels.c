@@ -12,6 +12,17 @@
 
 #include "../asm.h"
 
+static char			*ft_del_space(char *s)
+{
+	int i;
+
+	i = -1;
+	while (s[++i])
+		if (s[i] == ' ' || s[i] == '\t')
+			s[i] = '\0'; 
+	return (s);
+}
+
 static int			ft_get_path_after(const char *s, t_parser *par)
 {
 	int		res;
@@ -79,7 +90,7 @@ int					ft_count_labels(t_parser *head)
 			{
 				if (tmp->val)
 				{
-					if ((tmp->value = ft_get_path(tmp->val, i, head)) == -1)
+					if ((tmp->value = ft_get_path(ft_del_space(tmp->val), i, head)) == -1)
 						return (ft_error(15));
 					free(tmp->val);
 					tmp->val = NULL;
