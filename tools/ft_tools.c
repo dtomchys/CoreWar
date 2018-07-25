@@ -12,6 +12,19 @@
 
 #include "../asm.h"
 
+int			ft_check_under(int num, int op)
+{
+	if (num != 1 && (op == 1 || op == 9 || op == 12 || op == 15 || op == 16))
+		return (-1);
+	else if (num != 2 && (op == 2 || op == 3 || op == 13))
+		return (-1);
+	else if (num != 3 && ((op >= 4 && op <= 8) || op == 10\
+		|| op == 11 || op == 14))
+		return (-1);
+	else
+		return (0);
+}
+
 t_parser	*ft_new_par(void)
 {
 	t_parser *new;

@@ -127,5 +127,6 @@ int						ft_len_exec(t_parser *par);
 unsigned int			reverse_bits(int num, int bytes, int sign);
 
 int						ft_error(int i);
+int						ft_check_under(int num, int op);
 
 #endif

@@ -58,5 +58,5 @@ int			ft_get_info(t_parser *par, char **line)
 		par = par->next;
 	}
 	close(g_fd);
-	return (!g_last_line ? 0 : -1);
+	return (g_last_line && ft_error(16) ? -1 : 0);
 }

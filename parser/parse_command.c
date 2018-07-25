@@ -57,7 +57,7 @@ static int				ft_parse_param(char *s, t_parser *par)
 			return (ft_error(11));
 	}
 	ft_free_split(split);
-	return (i > 3 ? ft_error(12) : 0);
+	return (i > 3 || ft_check_under(i, par->op) ? ft_error(12) : 0);
 }
 
 static int				ft_parse_command3(char *s, t_parser *par, int *err)

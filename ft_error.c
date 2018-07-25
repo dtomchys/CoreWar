@@ -50,7 +50,7 @@ void	ft_error3(int i)
 	if (i == 11)
 		write(2, "\x1B[31mUnknown parameter\033[0m", 26);
 	else if (i == 12)
-		write(2, "\x1B[32mToo many parameter\033[0m", 27);
+		write(2, "\x1B[32mToo many/few parameter\033[0m", 31);
 	else if (i == 13)
 		write(2, "\x1B[34mTrouble with coma\033[0m", 26);
 	else if (i == 14)
@@ -68,8 +68,10 @@ int		ft_error(int i)
 		ft_error1(i);
 	else if (i <= 10)
 		ft_error2(i);
-	else
+	else if (i <= 15)
 		ft_error3(i);
+	else
+		write(2, "\x1B[31mNo new line at the end!\n\033[0m", 33);
 	if (i > 1)
 		close(g_fd);
 	return (-1);
